@@ -59,7 +59,7 @@ bool Builder::NewTask(std::string task) {
     auto cmake_path = boost::process::search_path("cmake");
 
 
-    std::cout << std::endl  << std::endl << "Executing Task : " << std::endl << task << std::endl << std::endl;
+    std::cout << std::endl << std::endl << "Executing Task : " << std::endl << task << std::endl << std::endl;
 
     bp::child child(cmake_path.string() + " " + task,
                     boost::process::std_out > stream);
