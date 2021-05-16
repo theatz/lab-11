@@ -86,4 +86,3 @@ bool Builder::NewTask(std::string task) {
         return true;
     }
 }
-
