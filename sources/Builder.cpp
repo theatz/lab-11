@@ -11,7 +11,7 @@ Builder::Builder(std::string config, bool install, bool pack, int32_t timeout)
     }
 
     if (_timeout != -1) {
-        std::thread{([this] {
+        auto timer = async::spawn([this] {
             std::cout << "Timer started" << std::endl;
             std::this_thread::sleep_for(std::chrono::seconds(_timeout));
             if (_child.running()) {
@@ -19,9 +19,9 @@ Builder::Builder(std::string config, bool install, bool pack, int32_t timeout)
                           << std::endl << "Terminating" << std::endl;
                 _child.terminate();
             }
-        })}.detach();
+        });
     }
-    // cmake -H. -B_builds -DCMAKE_INSTALL_PREFIX=_install -DCMAKE_BUILD_TYPE=Debug
+
     bool success =
             NewTask("-H. -B_builds -DCMAKE_INSTALL_PREFIX=_install "
                     "-DCMAKE_BUILD_TYPE="
