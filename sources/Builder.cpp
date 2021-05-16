@@ -5,7 +5,6 @@ namespace bp = boost::process;
 
 Builder::Builder(std::string config, bool install, bool pack, int32_t timeout)
         : _config(config), _install(install), _pack(pack), _timeout(timeout) {
-
     if (_timeout == 0) {
         std::cout << "Timeout = 0" << std::endl;
         return;
@@ -22,8 +21,6 @@ Builder::Builder(std::string config, bool install, bool pack, int32_t timeout)
             }
         })}.detach();
     }
-
-
     // cmake -H. -B_builds -DCMAKE_INSTALL_PREFIX=_install -DCMAKE_BUILD_TYPE=Debug
     bool success =
             NewTask("-H. -B_builds -DCMAKE_INSTALL_PREFIX=_install "
