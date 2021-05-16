@@ -4,12 +4,12 @@
 #include <iostream>
 #include <boost/thread.hpp>
 #include <boost/thread/thread.hpp>
-#include <sstream>
+#include <string>
 #include <boost/process.hpp>
 
 
-#ifndef INCLUDE_HEADER_HPP_
-#define INCLUDE_HEADER_HPP_
+#ifndef INCLUDE_BUILDER_HPP_
+#define INCLUDE_BUILDER_HPP_
 
 class Builder {
 public:
@@ -28,4 +28,4 @@ private:
     boost::process::child _child;
 };
 
-#endif // INCLUDE_HEADER_HPP_
+#endif // INCLUDE_BUILDER_HPP_

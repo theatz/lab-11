@@ -1,5 +1,4 @@
 // Copyright 2020 Your Name <your_email>
-
 #include <Builder.hpp>
 
 namespace bp = boost::process;
@@ -17,7 +16,8 @@ Builder::Builder(std::string config, bool install, bool pack, int32_t timeout)
             std::cout << "Timer started" << std::endl;
             std::this_thread::sleep_for(std::chrono::seconds(_timeout));
             if (_child.running()) {
-                std::cout << "Time is exceed." << std::endl << "Terminating" << std::endl;
+                std::cout << "Time is exceed."
+                          << std::endl << "Terminating" << std::endl;
                 _child.terminate();
             }
         })}.detach();
@@ -25,7 +25,10 @@ Builder::Builder(std::string config, bool install, bool pack, int32_t timeout)
 
 
     // cmake -H. -B_builds -DCMAKE_INSTALL_PREFIX=_install -DCMAKE_BUILD_TYPE=Debug
-    bool success = NewTask("-H. -B_builds -DCMAKE_INSTALL_PREFIX=_install -DCMAKE_BUILD_TYPE=" + _config);
+    bool success =
+            NewTask("-H. -B_builds -DCMAKE_INSTALL_PREFIX=_install "
+                    "-DCMAKE_BUILD_TYPE="
+                    + _config);
     if (!success)
         return;
     // build
@@ -59,7 +62,9 @@ bool Builder::NewTask(std::string task) {
     auto cmake_path = boost::process::search_path("cmake");
 
 
-    std::cout << std::endl << std::endl << "Executing Task : " << std::endl << task << std::endl << std::endl;
+    std::cout << std::endl << std::endl
+              << "Executing Task : " << std::endl << task
+              << std::endl << std::endl;
 
     bp::child child(cmake_path.string() + " " + task,
                     boost::process::std_out > stream);
@@ -77,8 +82,8 @@ bool Builder::NewTask(std::string task) {
     if (exit_code != 0) {
         std::cout << "Non zero exit code. Exiting..." << std::endl;
         return false;
-    } else
+    } else {
         return true;
-
+    }
 }
 
